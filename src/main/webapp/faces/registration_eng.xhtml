@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <title>Регистрация</title>
+    <style type="text/css">
+        .image-center {
+            display:block;
+            margin: auto;
+        }
+        body {
+            /*position: relative;*/
+            font-size: 16px;
+            font-family: 'Roboto', sans-serif;
+        }
+    </style>
+    <!--<ui:include src="primefaces-humanity"></ui:include>-->
+</h:head>
+<h:body>
+    <p></p>
+    <h:form id="newUser">
+        <p:growl id="msgs" showDetail="true" autoUpdate="true"/>
+        <p:graphicImage value="resources/images/index.png" styleClass="image-center"/>
+        <p></p><p></p>
+        <h:panelGrid columns="2" cellpadding="5" style="margin: 0 auto;">
+            <p:outputLabel for="name" value="Full name:"/>
+            <p:inputText id="name" value="#{createNewUser.username}" immediate="true"/>
+
+            <p:outputLabel for="username" value="Login:"/>
+            <p:inputText id="username" value="#{createNewUser.id}" immediate="true"/>
+
+            <p:outputLabel for="password2" value="Password:"/>
+            <p:password id="password2" minlength="8" value="#{createNewUser.password}" immediate="true"/>
+
+            <p:outputLabel for="password3" value="Confirm password:"/>
+            <p:password id="password3" minlength="8" value="#{createNewUser.REPEATpassword}" immediate="true"/>
+
+            <p></p><p:commandButton id="submit" value="Create user" action="#{createNewUser.save}" />
+            <p></p><p:commandLink id="ajax" action="#{createNewUser.toLogin}" style="margin-right:15px;color: black">
+                        <h:outputText value="Return to the login page" />
+                    </p:commandLink>
+        </h:panelGrid>
+    </h:form>
+</h:body>
+</html>

@@ -1,0 +1,17 @@
+<?xml version="1.0"  encoding="ISO-8859-1"?>
+<!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure.dtd">
+
+<Configure class="org.eclipse.jetty.webapp.WebAppContext">
+
+    <New id="DSTest" class="org.eclipse.jetty.plus.jndi.Resource">
+        <Arg/>
+        <Arg>jdbc/Postgres</Arg>
+        <Arg>
+            <New class="javax.jdbc.DataSource">
+                <Set name="URL">jdbc:oracle:thin:@192.168.100.118::1521:ORCL</Set>
+                <Set name="user">inpris</Set>
+                <Set name="password">INPRIS</Set>
+            </New>
+        </Arg>
+    </New>
+</Configure>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <title>Регистрация</title>
+    <style type="text/css">
+        .image-center {
+            display:block;
+            margin: auto;
+        }
+    </style>
+    <ui:include src="/resources/head.xhtml"/>
+</h:head>
+<h:body>
+    <script type="text/javascript">auth("#{menuBean.getUserName(7)}");</script>
+    <h:form id="registration">
+        <p:growl id="msgs" showDetail="true" autoUpdate="true"/>
+        <p:graphicImage value="/resources/images/index.png" styleClass="image-center"/>
+        <br></br>
+        <h:panelGrid columns="2" cellpadding="5" style="margin: 0 auto;">
+        <p:menubar>
+            <!--<p:menuitem value="ENG" url="/faces/allOrders_eng.xhtml" />-->
+            <p:submenu label="" icon="fa fa-folder">
+                <p:menuitem value=" Создать новый заказ" url="/faces/IRO_SOCKET_rus.xhtml" icon="fa fa-plus"/>
+                <p:menuitem value=" Все заказы" url="/faces/allOrders.xhtml" icon="fa fa-folder-open"/>
+            </p:submenu>
+            <p:submenu label="" icon="fa fa-group">
+                <p:menuitem value=" Все пользователи" url="/faces/allUsers.xhtml" icon="fa fa-group"/>
+            </p:submenu>
+            <p:menuitem value=" Отредактировать список цветов" url="/faces/adminSolids.xhtml" icon="fa fa-paint-brush"/>
+            <p:menuitem value="" url="/faces/login.xhtml" icon="fa fa-sign-out"/>
+        </p:menubar>
+        </h:panelGrid>
+        <br></br>
+        <h:panelGrid columns="2" cellpadding="5" style="margin: 0 auto;">
+            <p:outputLabel for="name" value="ФИО:"/>
+            <p:inputText id="name" value="#{createNewUser.username}" immediate="true"/>
+
+            <p:outputLabel for="username" value="Логин:"/>
+            <p:inputText id="username" value="#{createNewUser.id}" immediate="true"/>
+
+            <p:outputLabel for="password2" value="Пароль:"/>
+            <p:password id="password2" minlength="8" value="#{createNewUser.password}" immediate="true"/>
+
+            <p:outputLabel for="password3" value="Повторите пароль:"/>
+            <p:password id="password3" minlength="8" value="#{createNewUser.REPEATpassword}" immediate="true"/>
+
+      <p></p>  <p:selectOneMenu id="console" value="#{createNewUser.role}" style="width:235px;">
+            <f:selectItem itemLabel="Назначте роль.." itemValue="0" noSelectionOption="true" />
+            <f:selectItems value="#{createNewUser.roleList}" var="roles" itemValue="#{roles.id}" itemLabel="#{roles.roleName}"/>
+            <p:ajax event="itemSelect" update=":registration:submit"/>
+        </p:selectOneMenu>
+
+            <p></p>  <p:commandButton id="submit" value="Создать пользователя" action="#{createNewUser.save}" update=":form" icon="fa fa-user-plus"/>
+
+    </h:panelGrid>
+    </h:form>
+</h:body>
+</html>

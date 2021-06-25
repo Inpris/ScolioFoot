@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>ScolioFoot</groupId>
+    <artifactId>ScolioFoot</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>war</packaging>
+
+        <properties>
+            <project.build.sourceEncoder>UTF-8</project.build.sourceEncoder>
+            <maven.compiler.source>1.8</maven.compiler.source>
+            <maven.compiler.target>1.8</maven.compiler.target>
+            <java.version>1.8</java.version>
+            <!--<log4j.version>1.2.17</log4j.version>-->
+            <javaee.version>7.0</javaee.version>
+            <servlet.version>3.1.0</servlet.version>
+            <jsf.version>2.2.15</jsf.version>
+            <primefaces.version>6.2</primefaces.version>
+            <h2.version>1.4.197</h2.version>
+            <maven-compiler-plugin.version>3.7.0</maven-compiler-plugin.version>
+            <jetty-maven-plugin.version>9.4.14.v20181114</jetty-maven-plugin.version>
+        </properties>
+
+        <dependencies>
+            <!-- JavaEE, CDI -->
+            <dependency>
+                <groupId>javax</groupId>
+                <artifactId>javaee-api</artifactId>
+                <version>${javaee.version}</version>
+            </dependency>
+            <!-- Servlet -->
+            <!-- на случай, когда не указан JavaEE
+            <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>javax.servlet-api</artifactId>
+                <version>${servlet.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            -->
+
+            <!-- JSF -->
+            <!-- нужен, если запускать не под Glassfish-->
+                    <dependency>
+                        <groupId>com.sun.faces</groupId>
+                        <artifactId>jsf-api</artifactId>
+                        <version>${jsf.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>com.sun.faces</groupId>
+                        <artifactId>jsf-impl</artifactId>
+                        <version>${jsf.version}</version>
+                    </dependency>
+
+
+            <!-- CDI -->
+            <!-- нужен, если запускать не под Glassfish
+                    <dependency>
+                        <groupId>javax.enterprise</groupId>
+                        <artifactId>cdi-api</artifactId>
+                        <version>1.2</version>
+                    </dependency>
+            -->
+            <!-- PrimeFaces -->
+            <dependency>
+                <groupId>org.primefaces</groupId>
+                <artifactId>primefaces</artifactId>
+                <version>${primefaces.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.primefaces.extensions</groupId>
+                <artifactId>all-themes</artifactId>
+                <version>1.0.8</version>
+                <scope>compile</scope>
+            </dependency>
+            <!-- JDBC H2 -->
+            <!-- https://mvnrepository.com/artifact/com.h2database/h2 -->
+            <dependency>
+                <groupId>com.h2database</groupId>
+                <artifactId>h2</artifactId>
+                <version>${h2.version}</version>
+            </dependency>
+
+            <!-- logger -->
+            <!--<dependency>-->
+            <!--<groupId>log4j</groupId>-->
+            <!--<artifactId>log4j</artifactId>-->
+            <!--<version>${log4j.version}</version>-->
+            <!--</dependency>-->
+            <!--<dependency>-->
+            <!--<groupId>org.slf4j</groupId>-->
+            <!--<artifactId>slf4j-api</artifactId>-->
+            <!--<version>1.7.25</version>-->
+            <!--</dependency>-->
+            <!--<dependency>-->
+            <!--<groupId>org.slf4j</groupId>-->
+            <!--<artifactId>slf4j-jdk14</artifactId>-->
+            <!--<version>1.7.25</version>-->
+            <!--</dependency>-->
+        </dependencies>
+
+        <build>
+            <finalName>SCOLIO</finalName>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${maven-compiler-plugin.version}</version>
+                    <configuration>
+                        <source>${java.version}</source>
+                        <target>${java.version}</target>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <!-- jetty-maven-plugin -->
+                    <groupId>org.eclipse.jetty</groupId>
+                    <artifactId>jetty-maven-plugin</artifactId>
+                    <version>${jetty-maven-plugin.version}</version>
+                    <configuration>
+                        <httpConnector>
+                            <port>8080</port>
+                        </httpConnector>
+                        <webApp>
+                            <contextPath>/</contextPath>
+                        </webApp>
+                        <webAppSourceDirectory>ru.inpris.war/src/main/webapp</webAppSourceDirectory>
+                    </configuration>
+                </plugin>
+            </plugins>
+
+        </build>
+</project>

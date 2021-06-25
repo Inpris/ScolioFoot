@@ -1,0 +1,12 @@
+form {
+    background: no-repeat;
+    background-position: top center;
+    -moz-background-size: auto 2350px; /* Firefox 3.6+ */
+    -webkit-background-size: auto 2350px; /* Safari 3.1+ и Chrome 4.0+ */
+    -o-background-size: auto 2350px; /* Opera 9.6+ */
+    background-size: auto 2350px; /* Современные браузеры */
+    position: relative;
+    z-index: 0;
+    /*background-image: url(/resources/images/SMO.JPG);*/
+    background-image: url(#{request.contextPath}/resources/images/SurestepNew.JPG);
+}

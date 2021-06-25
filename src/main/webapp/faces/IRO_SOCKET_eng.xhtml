@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <title>Form filling</title>
+    <!--<h:outputStylesheet name="inpris.css" library="css"/>-->
+    <!--<link rel="stylesheet" type="text/css" href="/resources/css/inpris.css"/>-->
+    <style type="text/css" >
+        .image-center {
+            display:block;
+            margin: auto;
+            position: absolute;
+        }
+        body {
+            font-size: 16px;
+            font-family: 'Roboto', sans-serif;
+        }
+        .fon{
+            background: no-repeat;
+            background-position: top center;
+            -moz-background-size: auto 2350px; /* Firefox 3.6+ */
+            -webkit-background-size: auto 2350px; /* Safari 3.1+ и Chrome 4.0+ */
+            -o-background-size: auto 2350px; /* Opera 9.6+ */
+            background-size: auto 2350px; /* Современные браузеры */
+            position: relative;
+            z-index: 0;
+            background-image: url(#{request.contextPath}/resources/images/SurestepNewENG.JPG);
+        }
+    </style>
+    <ui:include src="/resources/head.xhtml"/>
+</h:head>
+<h:body>
+    <script type="text/javascript">auth("#{menuBean.getUserName(2)}");</script>
+    <h:form id="footXHTML" >
+        <p:growl id="msgs1"  showDetail="true" autoUpdate="true"/>
+        <div id="fon" class="fon">
+        <div style="margin: 25px auto 0; width:605px;height: 112px">
+            <p:graphicImage value="/resources/images/index.png" styleClass="image-center"/>
+        </div>
+
+        <div style="margin: 0 auto; width:605px;height: 62px">
+            <h:panelGrid columns="3" cellpadding="1" style="margin: 0 auto">
+                <!--<p:clock  style="height:38px;width: 261px"/>-->
+                <!--<p:commandButton value="ENG" title="ENG" action="#{foot.ENG}" style="height:38px;width: 100px"/>-->
+                <!--<p:commandButton value="Посмотреть свои заказы" title="Orders" action="#{foot.orders}" style="height:38px;width: 261px"/>-->
+                <!--<p:commandButton value="Выход" title="Out" action="#{foot.logout}" style="height:38px;width: 100px"/>-->
+                <p:menubar>
+                    <p:menuitem value="View orders" url="#{foot.menu()}" />
+                    <p:menuitem value="RUS" url="#{foot.ENG()}" />
+                    <p:menuitem value="" url="/faces/login.xhtml" icon="fa fa-sign-out"/>
+                </p:menubar>
+            </h:panelGrid>
+        </div>
+        <div style="margin: 0 auto 25px; height: 288px; width:530px;">
+            <h:panelGrid columns="2" cellpadding="2" style="margin: 0 auto;">
+                <h:outputText value="Date of consultation:" style="font-weight:bold;"/>
+                <p:calendar id="DateOfConsultation" value="#{foot.dconsultation}" locale="de" navigator="true" pattern="yyyy-MM-dd" style="width: 170px;" mask="true" immediate="true" />
+
+                <h:outputText value="Date of issue:" style="font-weight:bold"/>
+                <p:calendar id="DateOfIssue" value="#{foot.dissue}" locale="de" navigator="true" pattern="yyyy-MM-dd" style="width: 170px;" mask="true" immediate="true" />
+
+                <h:outputText value="First Name:" style="font-weight:bold"/>
+                <p:inputText id="name" value="#{foot.firstName}" style="width: 235px;" immediate="true"/>
+
+                <h:outputText value="Last Name:" style="font-weight:bold"/>
+                <p:inputText id="Last_Name" value="#{foot.lastName}" style="width: 235px;" immediate="true"/>
+
+                <h:outputText value="Patronymic:" style="font-weight:bold"/>
+                <p:inputText id="Patronymic" value="#{foot.patronymic}" style="width: 235px;" immediate="true"/>
+
+                <h:outputText value="Diagnosis:" style="font-weight:bold"/>
+                <p:inputText id="Diagnosis" value="#{foot.diagnosis}" style="width: 235px;" immediate="true"/>
+            </h:panelGrid>
+            <h:panelGrid columns="1" cellpadding="1" style="margin: 0 auto;">
+                <!--<h:outputText value="" />-->
+                <p:selectOneRadio id="side" value="#{foot.side}" unselectable="true" immediate="true">
+                    <f:selectItem itemLabel="Left" itemValue="Left" />
+                    <f:selectItem itemLabel="Right" itemValue="Right" />
+                    <f:selectItem itemLabel="Bilateral" itemValue="Bilateral" />
+                </p:selectOneRadio>
+            </h:panelGrid>
+            <h:panelGrid columns="2" cellpadding="18" style="margin: 0 auto;">
+                <h:outputText value="Color:" style="font-weight:bold"/>
+
+                <p:selectOneMenu id="console" value="#{foot.solids}" style="width:235px;">
+                    <f:selectItem itemLabel="Choose color.." itemValue="" noSelectionOption="true" />
+                    <f:selectItems value="#{foot.solidsList}" var="solids" itemValue="#{solids.id}" itemLabel="#{solids.solidsName}"/>
+                    <p:ajax event="itemSelect" update=":footXHTML:submits"/>
+                </p:selectOneMenu>
+            </h:panelGrid>
+        </div>
+        <div style="margin: 25px auto 90px; height: 180px; width:605px;">
+
+            <h:panelGrid columns="1" cellpadding="1" style="margin: 20px auto 0">
+                <h:outputText value="nnnnnnnnnnnn" style="visibility: hidden;font-size:20px"/>
+                <h:outputText value="Notes: (suggestions about SMO: open heel, closed" style="font-weight:bold;"/>
+            </h:panelGrid>
+            <h:panelGrid columns="1" cellpadding="1" style="margin: 0 auto">
+                <h:outputText value="heel, the increased height of the heel is (at Equinoxe), etc.)" style="font-weight:bold;"/>
+            </h:panelGrid>
+            <h:panelGrid columns="1" cellpadding="2" style="margin: 0 auto">
+                <p:inputText id="notes" value="#{foot.notes}" style="width: 485px" immediate="true"/>
+            </h:panelGrid>
+            <h:panelGrid columns="1" cellpadding="1" style="margin: 0 auto">
+                <h:outputText value="Address, if the filial or partners" style="font-weight:bold"/>
+            </h:panelGrid>
+            <h:panelGrid columns="1" cellpadding="2" style="margin: 0 auto">
+                <p:inputText id="address" value="#{foot.address}" style="width: 485px" immediate="true"/>
+            </h:panelGrid>
+
+        </div>
+        <div style="margin: 20px auto 110px;height: 100px; width:555px;"> <!--width 35%-->
+            <h:panelGrid columns="1" cellpadding="1" style="width: 135px; float: right;margin: 10px 5px 0 10px;">
+                <!--<h:outputText value="nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn" style="visibility: hidden;font-size:20px"/>-->
+                <p:inplace id="ajax1" editor="true">
+                    <p:inputText value="#{foot.fir}" immediate="true" label="fir" style="width: 65px;"/>
+                </p:inplace>
+                <!--<h:outputText value="nnn" style="visibility: hidden;font-size:20px"/>-->
+            </h:panelGrid>
+        </div>
+        <div style="margin: 0 auto 30px;height: 120px; width:632px; clear: both;"> <!--23.7%-->
+            <!--<h:outputText value="nnnnnnnnnnnnnnnn" style="visibility: hidden;font-size:20px"/>-->
+            <h:panelGrid columns="1" cellpadding="1" style="float: right;margin: 10px 150px 0 25px;width: 135px">
+                <p:inplace id="ajax3" editor="true">
+                    <p:inputText value="#{foot.thi}" immediate="true" label="thi" style="width: 65px;"/>
+                </p:inplace>
+                <!--<h:outputText value="nnnnnnnnnnnn" style="visibility: hidden;font-size:20px"/>-->
+            </h:panelGrid>
+            <h:panelGrid columns="1" cellpadding="1" style="float: right;margin: 10px 0 0 135px;width: 135px">
+                <!--<h:outputText value="nnnnnnnnnnnnnnnn" style="visibility: hidden;font-size:20px"/>-->
+                <p:inplace id="ajax2" editor="true">
+                    <p:inputText value="#{foot.sec}" immediate="true" label="sec" style="width: 65px;"/>
+                </p:inplace>
+            </h:panelGrid>
+        </div>
+        <div style="margin: 0 auto 195px;height: 86px; width:632px; clear: both;">
+            <h:panelGrid columns="1" cellpadding="1" style="float: left;margin: 0 20px 0 275px;width: 95px">
+                <!--<h:outputText value="nnnnnnnnnnnnnnnnnnnnnn" style="visibility: hidden;font-size:20px"/>-->
+                <p:inplace id="ajax5" editor="true">
+                    <p:inputText value="#{foot.fif}" immediate="true" label="fif" style="width: 65px;"/>
+                </p:inplace>
+                <!--<h:outputText value="nnnnnnnnnnnnnnnnnnnnnnnn" style="visibility: hidden;font-size:20px"/>-->
+            </h:panelGrid>
+            <h:panelGrid columns="1" cellpadding="1" style="float: right;margin: 0 80px 0 35px;width: 95px">
+                <p:inplace id="ajaxLength" editor="true">
+                    <p:inputText value="#{foot.fl}" immediate="true" label="fl" style="width: 65px;"/>
+                </p:inplace>
+                <!--<h:outputText value="nnnn" style="visibility: hidden;font-size:20px"/>-->
+            </h:panelGrid>
+        </div>
+        <div style="margin: 0 auto 115px; height: 100px; width:632px;">
+            <h:panelGrid columns="1" cellpadding="1" style="float: right;margin: 0 145px 0 135px;width: 95px">
+                <p:inplace id="ajax6" editor="true">
+                    <p:inputText value="#{foot.six}" immediate="true" label="six" style="width: 65px;"/>
+                </p:inplace>
+                <!--<h:outputText value="nnnnnnnnnnnnnnn" style="visibility: hidden;font-size:16px"/>-->
+            </h:panelGrid>
+            <h:panelGrid columns="1" cellpadding="1" style="float: right;margin: 0 0 0 10px;width: 95px">
+                <!--<h:outputText value="nnnnn" style="visibility: hidden;font-size:16px"/>-->
+                <p:inplace id="ajax7" editor="true">
+                    <p:inputText value="#{foot.sev}" immediate="true" label="sev" style="width: 65px;"/>
+                </p:inplace>
+                <!--<h:outputText id="text4" value="nnnnnnnnnnnnnnnnnnnnnnnnnn" style="visibility: hidden;font-size: 16px"/>-->
+            </h:panelGrid>
+        </div>
+        <div style="margin: 0 auto 145px;height: 80px; width:632px;">
+            <h:panelGrid columns="5" cellpadding="1" style="float: left;margin: 0 10px 0 275px;width: 95px">
+                <!--<h:outputText value="nnnnnnnnnnnnnn" style="visibility: hidden;"/>-->
+                <p:inplace id="ajax4" editor="true">
+                    <p:inputText value="#{foot.fou}" immediate="true" label="fou" style="width: 65px;"/>
+                </p:inplace>
+                <!--<h:outputText value="nnnnnnnnnnnnnnnnnnnnnnn" style="visibility: hidden;font-size:16px"/>-->
+            </h:panelGrid>
+            <h:panelGrid columns="1" cellpadding="1" style="float: right;margin: 0 95px 0 65px;width: 95px">
+                <p:inplace id="ajaxHeightToTibialTuberosity" editor="true">
+                    <p:inputText value="#{foot.httt}" immediate="true" label="httt" style="width: 65px;"/>
+                </p:inplace>
+                <!--<h:outputText value="nnnn" style="visibility: hidden;font-size:20px"/>-->
+            </h:panelGrid>
+        </div>
+        <div style="margin: 0 auto;height: 100px; width:632px;">
+            <h:panelGrid columns="5" cellpadding="1" style="float: left;margin: 0 0 0 155px;width: 95px">
+                <!--<h:outputText value="nnnnnnnn" style="visibility: hidden;font-size:16px"/>-->
+                <p:inplace id="ajax9" editor="true">
+                    <p:inputText value="#{foot.nin}" immediate="true" label="nin" style="width: 65px;"/>
+                </p:inplace>
+                <!--<h:outputText value="nnnnnnnnnnnnnnnnnnnnn" style="visibility: hidden;font-size: 16px"/>-->
+            </h:panelGrid>
+            <h:panelGrid columns="5" cellpadding="1" style="float: right;margin: 0 160px 0 125px;width: 95px">
+                <p:inplace id="ajax8" editor="true">
+                    <p:inputText value="#{foot.eig}" immediate="true" label="eig" style="width: 65px;"/>
+                </p:inplace>
+                <!--<h:outputText value="nnnnnnnnnnnnnn" style="visibility: hidden;font-size:16px"/>-->
+            </h:panelGrid>
+        </div>
+        <div style="margin: 30px auto 5px; width:605px; height: 70px">
+            <h:panelGrid columns="1" cellpadding="1" style="margin: 0 auto">
+                <h:outputText value="Mark optional" style="font-weight:bold"/>
+            </h:panelGrid>
+            <h:panelGrid columns="1" cellpadding="1" style="margin: 0 auto">
+                <p:inputText id="MarkOptional" value="#{foot.mark}" style="width: 485px" immediate="true"/>
+            </h:panelGrid>
+        </div>
+        <div style="margin: 0 auto 5px;width:605px;height: 62px;">
+            <h:panelGrid columns="2" cellpadding="1" style="margin: 0 auto" id="submits">
+                <p:commandButton value="Enter data" title="Entered" action="#{foot.addAll(2)}" update=":footXHTML" />
+                <p:commandButton value="Save some data" title="Save" action="#{foot.addAll(1)}" update=":footXHTML"/>
+            </h:panelGrid>
+        </div>
+        </div>
+    </h:form>
+</h:body>
+</html>
+
+

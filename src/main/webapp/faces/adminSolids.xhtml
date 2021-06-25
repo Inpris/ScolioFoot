@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>Выберите цвета</title>
+    <style type="text/css">
+        /*@import url("https://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css");*/
+        .image-center {
+            display:block;
+            margin: auto;
+        }
+        body {
+            /*position: relative;*/
+            font-size: 16px;
+            font-family: 'Roboto', sans-serif;
+        }
+    </style>
+    <ui:include src="/resources/head.xhtml"/>
+</h:head>
+<h:body>
+<h:form id="form">
+    <script type="text/javascript">auth("#{menuBean.getUserName(6)}");</script>
+
+    <p:growl id="msgs"  showDetail="true" autoUpdate="true"/>
+
+    <p:graphicImage value="/resources/images/index.png" styleClass="image-center"/>
+    <br></br>
+    <p:menubar style="display:block; margin: auto; width: 125px">
+        <!--<p:menuitem value="ENG" url="/faces/allOrders_eng.xhtml" />-->
+        <p:submenu label="" icon="fa fa-folder">
+            <p:menuitem value=" Создать новый заказ" url="/faces/IRO_SOCKET_rus.xhtml" icon="fa fa-plus"/>
+            <p:menuitem value=" Все заказы" url="/faces/allOrders.xhtml" icon="fa fa-folder-open"/>
+        </p:submenu>
+        <p:submenu label="" icon="fa fa-group">
+            <p:menuitem value=" Создать нового пользователя" url="/faces/adm_registration.xhtml" icon="fa fa-user-plus"/>
+            <p:menuitem value=" Все пользователи" url="/faces/allUsers.xhtml" icon="fa fa-group"/>
+        </p:submenu>
+        <p:menuitem value="" url="/faces/login.xhtml" icon="fa fa-sign-out"/>
+    </p:menubar>
+    <br></br>
+    <br></br>
+    <h:panelGrid style="margin: 0 auto;">
+        <h:outputText value="Изменить цвета в наличии:" style="font-weight:bold; font-size: 20px"/>
+    </h:panelGrid>
+        <!--<p:selectManyCheckbox id="grid" value="#{admin.selectedSolids}" layout="responsive" columns="2">-->
+        <!--<f:selectItems value="#{admin.solidsList}" var="solid" itemLabel="#{solid.solidsName}" itemValue="#{solid.isActive}" />-->
+    <!--</p:selectManyCheckbox>-->
+        <br></br>
+    <h:panelGrid columns="3" cellpadding="10" style="margin: 0 auto;">
+        <p:selectBooleanCheckbox value="#{colors.white}" itemLabel="Белый" style="color: darkgray"/>
+        <p:selectBooleanCheckbox value="#{colors.green}" itemLabel="Зелёный" style="color: green"/>
+        <p:selectBooleanCheckbox value="#{colors.red}" itemLabel="Красный" style="color: red"/>
+        <p:selectBooleanCheckbox value="#{colors.purple}" itemLabel="Фиолетовый" style="color: purple"/>
+        <p:selectBooleanCheckbox value="#{colors.brown}" itemLabel="Коричневый" style="color: saddlebrown"/>
+        <p:selectBooleanCheckbox value="#{colors.turquoise}" itemLabel="Бирюзовый" style="color: deepskyblue"/>
+        <p:selectBooleanCheckbox value="#{colors.orange}" itemLabel="Оранжевый" style="color: orangered"/>
+        <p:selectBooleanCheckbox value="#{colors.black}" itemLabel="Чёрный" style="color: black"/>
+        <p:selectBooleanCheckbox value="#{colors.yellow}" itemLabel="Жёлтый" style="color: orange"/>
+        <p:selectBooleanCheckbox value="#{colors.pink}" itemLabel="Розовый" style="color: deeppink"/>
+        <p:selectBooleanCheckbox value="#{colors.blue}" itemLabel="Синий" style="color: blue"/>
+    </h:panelGrid>
+        <br></br>
+    <h:panelGrid columns="3" cellpadding="10" style="margin: 0 auto;">
+    <p:commandButton value="Сохранить доступные цвета" update=":form" action="#{colors.addSolids(colors.white, colors.green, colors.red, colors.purple, colors.brown, colors.turquoise, colors.orange, colors.black, colors.yellow, colors.pink, colors.blue)}" style="margin: 0 auto;"/>
+    </h:panelGrid>
+</h:form>
+</h:body>
+</html>

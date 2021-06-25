@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <title>Все пользователи</title>
+    <script type="text/javascript">
+        PrimeFaces.locales['es'] = {
+            closeText: 'Cerrar',
+            prevText: 'Anterior',
+            nextText: 'Siguiente',
+            monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+            monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+            dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+            dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'],
+            dayNamesMin: ['D', 'L', 'M', 'X', 'J', 'V', 'S'],
+            weekHeader: 'Semana',
+            firstDayOfWeek: 1,
+            isRTL: false,
+            showMonthAfterYear: false,
+            yearSuffix: '',
+            timeOnlyTitle: 'Sólo hora',
+            timeText: 'Tiempo',
+            hourText: 'Hora',
+            minuteText: 'Minuto',
+            secondText: 'Segundo',
+            currentText: 'Fecha actual',
+            ampm: false,
+            month: 'Mes',
+            week: 'Semana',
+            day: 'Día',
+            allDayText: 'Todo el día'
+        };
+    </script>
+    <style type="text/css">
+        .panelGridCenter {
+            margin: 0 auto;
+            /*text-align: center;*/
+        }
+        .image-center {
+            display:block;
+            margin: auto;
+        }
+        /*body {*/
+        /*background: url(../resources/images/SMO.JPG) no-repeat;*/
+        /*background-position: top center;*/
+        /*!*height: 3746px;*!*/
+        /*!*4994px*/
+        /*margin: 0;*!*/
+        /*-moz-background-size: auto 4700px; !* Firefox 3.6+ *!*/
+        /*-webkit-background-size: auto 4700px; !* Safari 3.1+ и Chrome 4.0+ *!*/
+        /*-o-background-size: auto 4700px; !* Opera 9.6+ *!*/
+        /*background-size: auto 4700px; !* Современные браузеры *!*/
+        /*}*/
+    </style>
+    <ui:include src="/resources/head.xhtml"/>
+</h:head>
+<h:body>
+    <script type="text/javascript">auth("#{menuBean.getUserName(5)}");</script>
+    <h:form id="form">
+        <p:growl id="msgs2" showDetail="true" />
+        <p:growl id="msgs" showDetail="true"/>
+
+        <p:graphicImage value="/resources/images/index.png" styleClass="image-center"/>
+        <br></br>
+        <h:panelGrid columns="1" cellpadding="1" style="margin: 0 auto">
+
+            <p:menubar>
+                <!--<p:menuitem value="ENG" url="/faces/allOrders_eng.xhtml" />-->
+                <p:submenu label="" icon="fa fa-folder">
+                    <p:menuitem value=" Создать новый заказ" url="/faces/IRO_SOCKET_rus.xhtml" icon="fa fa-plus"/>
+                    <p:menuitem value=" Все заказы" url="/faces/allOrders.xhtml" icon="fa fa-folder-open"/>
+                </p:submenu>
+                <p:submenu label="" icon="fa fa-group">
+                    <p:menuitem value="Создать нового пользователя" url="/faces/adm_registration.xhtml" icon="fa fa-user-plus"/>
+                </p:submenu>
+                <p:menuitem value=" Отредактировать список цветов" url="/faces/adminSolids.xhtml" icon="fa fa-paint-brush"/>
+                <p:menuitem value="" url="/faces/login.xhtml" icon="fa fa-sign-out"/>
+            </p:menubar>
+        </h:panelGrid>
+        <br></br>
+        <p:dataTable id="dtb" scrollable="true" resizableColumns="true" handles="e,w,n,se,sw,ne,nw" ghost="true" var="u" value="#{users.list}" rowKey="#{u.login}" editable="true" >
+
+            <p:ajax event="rowEdit" listener="#{users.onRowEdit}" />
+            <p:ajax event="rowEditCancel" listener="#{users.onRowCancel}" />
+
+            <f:facet name="header">
+                Заказы
+                <p:commandButton id="columns" type="button" value="Columns" style="float:right" icon="ui-icon ui-icon-clipboard" />
+                <p:columnToggler datasource="dtb" trigger="columns" />
+                <br></br>
+            </f:facet>
+
+            <p:column headerText="Логин" id="login">
+                <!--<p:cellEditor>-->
+                    <!--<f:facet name="output">-->
+                        <h:outputText value="#{u.login}" />
+                    <!--</f:facet>-->
+                    <!--<f:facet name="input">-->
+                        <!--<p:inputText value="#{u.login}" />-->
+                    <!--</f:facet>-->
+                <!--</p:cellEditor>-->
+            </p:column>
+
+            <p:column headerText="Имя" id="first_name">
+                <p:cellEditor>
+                    <f:facet name="output">
+                        <h:outputText value="#{u.name}" />
+                    </f:facet>
+                    <f:facet name="input">
+                        <p:inputText value="#{u.name}" />
+                    </f:facet>
+                </p:cellEditor>
+            </p:column>
+
+            <p:column headerText="Роль" id="last_name">
+                <p:cellEditor>
+                    <f:facet name="output">
+                        <h:outputText value="#{u.role}" />
+                    </f:facet>
+                    <f:facet name="input">
+                    <p:selectOneMenu id="role" value="#{u.role}">
+                        <f:selectItem itemLabel="Врач" itemValue="1" />
+                        <f:selectItem itemLabel="Администратор" itemValue="2" />
+                    </p:selectOneMenu>
+                    </f:facet>
+                </p:cellEditor>
+            </p:column>
+
+            <p:column headerText="Статус пользователя">
+                <p:cellEditor>
+                    <f:facet name="output">
+                        <h:outputText value="#{u.status}" />
+                    </f:facet>
+                    <f:facet name="input">
+                        <p:selectOneMenu id="console1" value="#{u.status}">
+                            <f:selectItem itemLabel="active" itemValue="active" />
+                            <f:selectItem itemLabel="inactive" itemValue="inactive" />
+                        </p:selectOneMenu>
+                    </f:facet>
+                </p:cellEditor>
+            </p:column>
+
+            <p:column style="width:50px" headerText="Ред.">
+                <p:rowEditor style="display: inline-block"/>
+                <p:commandButton style="margin-left: 1rem; border: none; height: 25px; width: 25px; vertical-align: middle; display: inline-block" icon="ui-icon ui-icon-trash" value="" title="Удалить строку" action="#{users.delete(u.login)}" update=":form:dtb" >
+                    <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon ui-icon-alert" />
+                </p:commandButton>
+            </p:column>
+        </p:dataTable>
+
+        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+            <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon ui-icon-check" />
+            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon ui-icon-closethick" />
+        </p:confirmDialog>
+    </h:form>
+</h:body>
+</html>

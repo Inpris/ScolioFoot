@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <title>Login</title>
+    <style type="text/css">
+        .outer {
+            text-align: center;
+            font-family: Arial;
+            font-size: 15pt;
+            /*border: 1px solid blue;*/
+        }
+        .image-center {
+            display: block;
+            margin: auto;
+        }
+    </style>
+</h:head>
+<h:body>
+    <!--Application Server was not connected before run configuration stop, reason: com.intellij.javaee.process.common.WrappedException: java.io.IOException: com.sun.enterprise.admin.remote.RemoteFailureException: -->
+    <!--Exception while processing command: javax.security.auth.login.LoginException-->
+    <h:form action="j_security_check" method="POST">
+        <p:growl id="msgs" showDetail="true" autoUpdate="true"/>
+
+        <p:graphicImage value="/resources/images/index.png" styleClass="image-center"/>
+
+        <p></p>
+        <p></p><p></p>
+        <!--<h3 style="text-align: center; font-family: Arial;">Вход в систему</h3>-->
+        <h:panelGrid columns="2" cellpadding="5" style="margin: 30px auto">
+
+
+            <p:outputLabel for="username" value="Login:"/>
+            <p:inputText id="username" value="#{loginBean.username}" immediate="true" autocomplete="off" style="width: 250px"/>
+
+
+            <p:outputLabel for="password" value="Password:"/>
+            <p:password id="password" value="#{loginBean.password}" immediate="true" autocomplete="off" style="width: 250px"/>
+
+            <p></p>
+            <p:commandButton value="Sign in" action="#{loginBean.login}" style="width: 260px"/>
+            <p></p>
+            <h:panelGrid columns="2" cellpadding="10" style="margin: 0 auto">
+            <p:commandButton value="RUS" action="#{loginBean.RUS}" />
+
+            <p:commandLink id="ajax" action="#{loginBean.registration}" style="margin-right:15px;color: black">
+                <h:outputText value="Registration" />
+            </p:commandLink>
+        </h:panelGrid>
+        </h:panelGrid>
+    </h:form>
+</h:body>
+</html>
+
+
