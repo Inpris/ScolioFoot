@@ -5,12 +5,18 @@
 
     <New id="DSTest" class="org.eclipse.jetty.plus.jndi.Resource">
         <Arg/>
-        <Arg>jdbc/Postgres</Arg>
+        <!--<Arg>jdbc/Postgres</Arg>-->
+        <Arg>jdbc/SCOLIO</Arg>
         <Arg>
-            <New class="javax.jdbc.DataSource">
-                <Set name="URL">jdbc:oracle:thin:@192.168.100.118::1521:ORCL</Set>
-                <Set name="user">inpris</Set>
-                <Set name="password">INPRIS</Set>
+            <!--<New class="javax.jdbc.DataSource">-->
+                <!--<Set name="URL">jdbc:oracle:thin:@192.168.100.118::1521:ORCL</Set>-->
+                <!--<Set name="user">inpris</Set>-->
+                <!--<Set name="password">INPRIS</Set>-->
+            <!--</New>-->
+            <New class="javax.sql.DataSource">
+                <Set name="URL">postgres://wmuqguxvldfzcn:798f03414424a1298035ea9f0b4d558891fe6c1b1f57132dd2383bece596f46a@ec2-54-163-97-228.compute-1.amazonaws.com:5432/d64q2siun2u99</Set>
+                <Set name="user">wmuqguxvldfzcn</Set>
+                <Set name="password">798f03414424a1298035ea9f0b4d558891fe6c1b1f57132dd2383bece596f46a</Set>
             </New>
         </Arg>
     </New>

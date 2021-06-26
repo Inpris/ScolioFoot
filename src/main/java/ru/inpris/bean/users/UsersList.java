@@ -1,4 +1,4 @@
-package ru.inpris.bean.view_entered_orders;
+package ru.inpris.bean.users;
 
 import ru.inpris.bean.users.UsersUpModel;
 

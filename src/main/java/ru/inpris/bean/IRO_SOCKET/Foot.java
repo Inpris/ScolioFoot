@@ -27,7 +27,6 @@ public class Foot implements Serializable /*сохраняет контроллер в файл, а не в 
 
     @Resource(name = "jdbc/SCOLIO", mappedName = "jdbc/SCOLIO")
     private DataSource ds;
-
     private String patronymic, fl = "0 mm", httt = "0 mm", fir="0 mm", sec="0 mm", thi="0 mm", fou="0 mm", fif="0 mm", six="0 mm", sev="0 mm", eig="0 mm", nin="0 mm", mark, login, firstName, lastName, address, notes, diagnosis, side;
 //    gender, city, stProv, postalCode, orderConfirmation, chafeOptions, cityShipping, stProvShipping, postalCodeShipping,
 //    smo, company, , companyContactName, companyContactPhone, companyContactEMail, companyContactFax, modifications, allard, allardSide;

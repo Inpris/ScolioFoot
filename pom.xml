@@ -32,15 +32,19 @@
                 <version>${javaee.version}</version>
             </dependency>
             <!-- Servlet -->
-            <!-- на случай, когда не указан JavaEE
+            <!-- на случай, когда не указан JavaEE-->
             <dependency>
                 <groupId>javax.servlet</groupId>
                 <artifactId>javax.servlet-api</artifactId>
                 <version>${servlet.version}</version>
                 <scope>provided</scope>
             </dependency>
-            -->
 
+            <dependency>
+                <groupId>org.postgresql</groupId>
+                <artifactId>postgresql</artifactId>
+                <version>9.4.1208</version>
+            </dependency>
             <!-- JSF -->
             <!-- нужен, если запускать не под Glassfish-->
                     <dependency>
@@ -56,13 +60,13 @@
 
 
             <!-- CDI -->
-            <!-- нужен, если запускать не под Glassfish
+            <!-- нужен, если запускать не под Glassfish-->
                     <dependency>
                         <groupId>javax.enterprise</groupId>
                         <artifactId>cdi-api</artifactId>
                         <version>1.2</version>
                     </dependency>
-            -->
+
             <!-- PrimeFaces -->
             <dependency>
                 <groupId>org.primefaces</groupId>
@@ -128,6 +132,30 @@
                         </webApp>
                         <webAppSourceDirectory>ru.inpris.war/src/main/webapp</webAppSourceDirectory>
                     </configuration>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-dependency-plugin</artifactId>
+                    <version>2.3</version>
+                    <executions>
+                        <execution>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>copy</goal>
+                            </goals>
+                            <configuration>
+                                <artifactItems>
+                                    <artifactItem>
+                                        <groupId>com.github.jsimone</groupId>
+                                        <artifactId>webapp-runner</artifactId>
+                                        <version>8.0.30.2</version>
+                                        <destFileName>webapp-runner.jar</destFileName>
+                                    </artifactItem>
+                                </artifactItems>
+                            </configuration>
+                        </execution>
+                    </executions>
                 </plugin>
             </plugins>
 
